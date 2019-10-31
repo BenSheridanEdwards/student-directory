@@ -23,7 +23,7 @@ end
 
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
-enrolled
+end 
 
 # Nothing happens until we call the methods
 
