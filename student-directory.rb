@@ -1,4 +1,4 @@
-# let's put all students into an array
+=begin
 students = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
@@ -12,6 +12,24 @@ students = [
   {name: "Joffrey Baratheon", cohort: :november},
   {name: "Norman Bates", cohort: :november}
 ]
+=end
+
+students = []
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  students = []
+  name = gets.chomp
+  while !name.empty? do
+    students << {name: name, cohort: :november}
+    puts "Now we have #{students.count} students"
+    name = gets.chomp
+  end
+  students
+end
+
+
 def print_header
   puts "The students of Villains Academy"
   puts "_____________"
@@ -26,7 +44,7 @@ def print_footer(students)
 end
 
 # Nothing happens until we call the methods
-
+students = input_students
 print_header
 print(students)
 print_footer(students)
