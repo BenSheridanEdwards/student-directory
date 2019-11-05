@@ -90,6 +90,10 @@ def print_footer
   end
 end
 
+def store_students
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 def save_students(filename)
   File.open(filename, "w") do |file|
     @students.each do |student| student_data = [student[:name], student[:cohort]]
@@ -99,8 +103,12 @@ def save_students(filename)
   end
 end
 
-def store_students
-  @students << {name: name, cohort: cohort.to_sym}
+def save_students_to_csv(filename)
+  CSV.open(filename, "w") do |file|
+    @students.each do |student| student_data = [student[:name], student[:cohort]]
+      file << student_data
+    end
+  end
 end
 
 def load_students(filename)
@@ -111,6 +119,13 @@ def load_students(filename)
     end
   end
 end
+
+def load_students_to_csv(filename)
+  CSV.foreach(filename) do |line|
+    name, cohort = line.chomp.split(",")
+    store_students
+  end
+end 
 
 def try_load_students
   filename = ARGV.first
