@@ -1,33 +1,5 @@
 @students = []
 
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  name = gets.chomp
-  puts "Please enter the cohort"
-  cohort = gets.chomp
-  cohort = :novmeber if cohort.empty?
-  while !name.empty? do
-    @students << {
-      name: name,
-      cohort: cohort.to_sym
-    }
-    puts "Now we have #{@students.count} students"
-    puts "What name would you like to add?"
-    name = gets.chomp
-    puts "What cohort are they apart of?"
-    cohort = gets.chomp
-  end
-  @students
-end
-
-def interactive_menu
-  loop do
-    print_menu
-    process(gets.chomp)
-  end
-end
-
 def print_menu
   puts ""
   puts "1. Input the students"
@@ -37,10 +9,11 @@ def print_menu
   puts "9. Exit"
 end
 
-def show_students
-  print_header
-  print_students_list
-  print_footer
+def interactive_menu
+  loop do
+    print_menu
+    process(STDIN.gets.chomp)
+  end
 end
 
 def process(selection)
@@ -58,6 +31,33 @@ def process(selection)
   else
     puts "I don't know what you meant, try again"
   end
+end
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  name = STDIN.gets.chomp
+  puts "Please enter the cohort"
+  cohort = STDIN.gets.chomp
+  cohort = :novmeber if cohort.empty?
+  while !name.empty? do
+    @students << {
+      name: name,
+      cohort: cohort.to_sym
+    }
+    puts "Now we have #{@students.count} students"
+    puts "What name would you like to add?"
+    name = STDIN.gets.chomp
+    puts "What cohort are they apart of?"
+    cohort = STDIN.gets.chomp
+  end
+  @students
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
 end
 
 def print_header
@@ -111,4 +111,5 @@ def try_load_students
   end
 end
 
+try_load_students
 interactive_menu
